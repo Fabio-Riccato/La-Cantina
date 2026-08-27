@@ -1,0 +1,55 @@
+name: bevande_app
+description: Gestionale distribuzione bevande - app multipiattaforma (mobile + web)
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # Traduzioni di Material (calendario, date picker) in italiano
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  http: ^1.2.2
+  shared_preferences: ^2.3.3
+  provider: ^6.1.2
+  google_fonts: ^6.2.1
+  gap: ^3.0.1
+  intl: 0.20.2
+  # Generazione e stampa dei PDF (funziona su Android, iOS e Web)
+  pdf: ^3.11.1
+  printing: ^5.13.4
+  # Calendario in stile Google Calendar (viste mese / 2 settimane / settimana)
+  table_calendar: ^3.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter:
+  uses-material-design: true
+
+# Icone app (Android / iOS / Windows) e icona sito web / PWA
+# Rigenera con: dart run flutter_launcher_icons
+flutter_launcher_icons:
+  image_path: "assets/icon/LaCantina.png"
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  # Icona adattiva Android (foreground con safe-zone + sfondo pieno)
+  adaptive_icon_background: "#63C0FD"
+  adaptive_icon_foreground: "assets/icon/LaCantina-adaptive-fg.png"
+  web:
+    generate: true
+    image_path: "assets/icon/LaCantina.png"
+    background_color: "#ffffff"
+    theme_color: "#ffffff"
+  windows:
+    generate: true
+    image_path: "assets/icon/LaCantina.png"
+    icon_size: 256
