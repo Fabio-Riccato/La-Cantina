@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const Gap(24),
                     Text(
-                      'Gestione Bevande',
+                      'La Cantina',
                       style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),
                     ),
                     const Gap(4),

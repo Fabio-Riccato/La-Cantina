@@ -21,7 +21,7 @@ class BevandeApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => AuthProvider(),
       child: MaterialApp(
-        title: 'Gestione Bevande',
+        title: 'La Cantina',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         // Interfaccia in italiano: nomi dei mesi, dei giorni e testi del date picker
