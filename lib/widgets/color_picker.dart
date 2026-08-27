@@ -19,6 +19,36 @@ const List<Color> tavolozzaColori = [
   Color(0xFF64748B), // grigio
 ];
 
+/// Indice, nella [tavolozzaColori], del colore più vicino a [hex] ("#RRGGBB").
+///
+/// Serve per raggruppare e ordinare i prodotti per colore: prodotti con lo
+/// stesso colore (o un colore molto simile) finiscono vicini, nell'ordine in
+/// cui i colori compaiono nella tavolozza (azzurro, blu, ... rosso, arancione, ...).
+int indiceColoreTavolozza(String hex) {
+  final rgb = _hexInRgb(hex);
+  final r = (rgb >> 16) & 0xFF, g = (rgb >> 8) & 0xFF, b = rgb & 0xFF;
+  var migliore = 0;
+  var minDist = 1 << 30;
+  for (var i = 0; i < tavolozzaColori.length; i++) {
+    final t = tavolozzaColori[i].value & 0xFFFFFF;
+    final dr = r - ((t >> 16) & 0xFF);
+    final dg = g - ((t >> 8) & 0xFF);
+    final db = b - (t & 0xFF);
+    final dist = dr * dr + dg * dg + db * db;
+    if (dist < minDist) {
+      minDist = dist;
+      migliore = i;
+    }
+  }
+  return migliore;
+}
+
+int _hexInRgb(String hex) {
+  final pulito = hex.replaceFirst('#', '');
+  if (pulito.length != 6) return 0x64748B;
+  return int.tryParse(pulito, radix: 16) ?? 0x64748B;
+}
+
 /// Griglia di colori selezionabili, usata nel form dei prodotti.
 class SelettoreColore extends StatelessWidget {
   final String coloreSelezionato; // formato "#RRGGBB"

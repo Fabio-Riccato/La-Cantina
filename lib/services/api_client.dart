@@ -22,7 +22,12 @@ class ApiClient {
       };
 
   Uri _uri(String path, [Map<String, String>? query]) {
-    return Uri.parse('${ApiConfig.baseUrl}$path').replace(queryParameters: query);
+    // Tollera uno slash finale di troppo in baseUrl: evita URL con "//" .
+    final base = ApiConfig.baseUrl.endsWith('/')
+        ? ApiConfig.baseUrl.substring(0, ApiConfig.baseUrl.length - 1)
+        : ApiConfig.baseUrl;
+    final p = path.startsWith('/') ? path : '/$path';
+    return Uri.parse('$base$p').replace(queryParameters: query);
   }
 
   dynamic _decode(http.Response response) {

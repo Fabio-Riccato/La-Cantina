@@ -5,6 +5,7 @@ import '../services/api_client.dart';
 import '../services/app_data_service.dart';
 import '../theme/app_theme.dart';
 import '../widgets/product_form_dialog.dart';
+import '../widgets/color_picker.dart' show indiceColoreTavolozza;
 import 'home_shell.dart' show AccountMenuButton;
 
 class ProductsScreen extends StatefulWidget {
@@ -48,10 +49,19 @@ class _ProductsScreenState extends State<ProductsScreen> {
     if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(messaggio)));
   }
 
+  /// Prodotti filtrati per ricerca e ordinati per colore: prodotti dello stesso
+  /// colore restano vicini (nell'ordine della tavolozza), poi per nome.
   List<Product> get _filtrati {
-    if (_ricerca.isEmpty) return _prodotti;
-    final q = _ricerca.toLowerCase();
-    return _prodotti.where((p) => p.nomeCompleto.toLowerCase().contains(q)).toList();
+    final q = _ricerca.trim().toLowerCase();
+    final base = q.isEmpty
+        ? _prodotti
+        : _prodotti.where((p) => p.nomeCompleto.toLowerCase().contains(q)).toList();
+    return [...base]..sort((a, b) {
+      final ca = indiceColoreTavolozza(a.colore);
+      final cb = indiceColoreTavolozza(b.colore);
+      if (ca != cb) return ca.compareTo(cb);
+      return a.nomeCompleto.toLowerCase().compareTo(b.nomeCompleto.toLowerCase());
+    });
   }
 
   Future<void> _nuovoProdotto() async {

@@ -1,9 +1,9 @@
 // Modifica questo indirizzo con quello del tuo server.
-// - In sviluppo locale su emulatore Android: usa 10.0.2.2 al posto di localhost.
-// - In produzione: usa il dominio/IP pubblico del tuo server (es. https://bevande.tuodominio.it).
+// - In sviluppo locale su emulatore Android: usa http://10.0.2.2:3000/api
+// - In sviluppo locale su web/desktop: usa http://localhost:3000/api
+// - In produzione: usa il dominio pubblico del server + /api
+// Le rotte del backend sono tutte sotto /api (vedi backend/src/index.ts),
+// quindi baseUrl deve terminare con /api e SENZA slash finale.
 class ApiConfig {
-  static const String baseUrl = String.fromEnvironment(
-    'API_BASE_URL',
-    defaultValue: 'http://192.168.178.29:3000/api',
-  );
+  static const String baseUrl = 'https://bev-api.michieletto.it/api';
 }
